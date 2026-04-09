@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Massali Legal | Bestuurs- en omgevingsrecht</title>
+<meta name="description" content="Jaafar Massali — jurist gespecialiseerd in bestuurs- en omgevingsrecht. Helder advies voor ondernemers, ontwikkelaars en overheden.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink: #111827;
+  --ink-secondary: #4b5563;
+  --ink-muted: #6b7280;
+  --paper: #ffffff;
+  --warm: #faf9f7;
+  --warm-deep: #f3f1ec;
+  --accent: #1e3a2f;
+  --accent-hover: #2d5a45;
+  --accent-subtle: rgba(30,58,47,.06);
+  --border: #e5e5e0;
+  --border-light: #f0efeb;
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --max-w: 1200px;
+  --ease: cubic-bezier(.16,1,.3,1);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.7;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ═══════════════════════════════════════
+   NAVIGATION — Stibbe-inspired minimal
+   ═══════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border-bottom: 1px solid transparent;
+  transition: border-color .4s, box-shadow .4s;
+}
+.nav.scrolled {
+  border-bottom-color: var(--border);
+  box-shadow: 0 1px 20px rgba(0,0,0,.04);
+}
+.nav-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 2.5rem;
+}
+.nav-logo {
+  font-family: var(--serif); font-weight: 700; font-size: 1.5rem;
+  letter-spacing: -.03em; color: var(--ink);
+}
+.nav-logo em { font-style: italic; font-weight: 400; color: var(--accent); }
+.nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: .875rem; font-weight: 400; color: var(--ink-secondary);
+  letter-spacing: .02em; transition: color .25s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+  background: var(--accent); transition: width .3s var(--ease);
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta-link {
+  font-size: .875rem !important; font-weight: 500 !important;
+  color: var(--paper) !important; background: var(--accent);
+  padding: .6rem 1.5rem; border-radius: 4px;
+  transition: background .25s !important;
+}
+.nav-cta-link::after { display: none !important; }
+.nav-cta-link:hover { background: var(--accent-hover) !important; color: var(--paper) !important; }
+
+.hamburger {
+  display: none; background: none; border: none; cursor: pointer;
+  width: 28px; height: 20px; position: relative; z-index: 1001;
+}
+.hamburger span {
+  display: block; width: 100%; height: 1.5px; background: var(--ink);
+  position: absolute; left: 0; transition: .3s;
+}
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.hamburger span:nth-child(3) { bottom: 0; }
+.hamburger.open span:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { bottom: 50%; transform: translateY(50%) rotate(-45deg); }
+
+@media (max-width: 860px) {
+  .hamburger { display: block; }
+  .nav-inner { padding: 1rem 1.5rem; }
+  .nav-links {
+    position: fixed; inset: 0; background: var(--paper);
+    flex-direction: column; justify-content: center; gap: 2rem;
+    opacity: 0; pointer-events: none; transition: opacity .35s;
+  }
+  .nav-links.open { opacity: 1; pointer-events: all; }
+  .nav-links a { font-size: 1.3rem; }
+  .nav-cta-link { font-size: 1.1rem !important; }
+}
+
+/* ═══════════════════════════════════════
+   HERO — McKinsey-style bold statement
+   ═══════════════════════════════════════ */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 10rem 2.5rem 6rem; position: relative;
+}
+.hero-inner { max-width: var(--max-w); margin: 0 auto; width: 100%; }
+.hero-label {
+  font-size: .75rem; font-weight: 500; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 2rem;
+  opacity: 0; animation: rise .8s .3s var(--ease) forwards;
+}
+.hero h1 {
+  font-family: var(--serif); font-size: clamp(2.8rem, 6vw, 4.8rem);
+  font-weight: 400; line-height: 1.1; letter-spacing: -.03em;
+  max-width: 800px; margin-bottom: 2rem;
+  opacity: 0; animation: rise .8s .45s var(--ease) forwards;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  font-size: 1.15rem; color: var(--ink-secondary); max-width: 520px;
+  line-height: 1.75; font-weight: 300; margin-bottom: 3rem;
+  opacity: 0; animation: rise .8s .6s var(--ease) forwards;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: .75rem;
+  font-size: .9rem; font-weight: 500; color: var(--accent);
+  border-bottom: 1.5px solid var(--accent); padding-bottom: .35rem;
+  transition: gap .3s var(--ease);
+  opacity: 0; animation: rise .8s .75s var(--ease) forwards;
+}
+.hero-cta:hover { gap: 1.1rem; }
+.hero-cta svg { transition: transform .3s var(--ease); }
+.hero-cta:hover svg { transform: translateX(3px); }
+
+.hero-line {
+  position: absolute; bottom: 3rem; left: 2.5rem;
+  width: 1px; height: 60px; background: var(--border);
+  opacity: 0; animation: lineGrow 1s 1.2s var(--ease) forwards;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes lineGrow {
+  from { opacity: 0; height: 0; }
+  to { opacity: 1; height: 60px; }
+}
+
+/* ═══════════════════════════════════════
+   STATS BAR — McKinsey-style counters
+   ═══════════════════════════════════════ */
+.stats {
+  background: var(--accent); color: var(--paper); padding: 3.5rem 2.5rem;
+}
+.stats-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--serif); font-size: 3rem; font-weight: 400;
+  letter-spacing: -.03em; line-height: 1;
+}
+.stat-label {
+  font-size: .8rem; font-weight: 400; letter-spacing: .08em;
+  text-transform: uppercase; opacity: .7; margin-top: .6rem;
+}
+@media (max-width: 600px) {
+  .stats-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+/* ═══════════════════════════════════════
+   SECTION SCAFFOLDING
+   ═══════════════════════════════════════ */
+section { padding: 7rem 2.5rem; }
+.container { max-width: var(--max-w); margin: 0 auto; }
+
+.sec-label {
+  font-size: .7rem; font-weight: 500; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem;
+}
+.sec-title {
+  font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400; line-height: 1.15; letter-spacing: -.025em;
+  margin-bottom: .8rem;
+}
+.sec-intro {
+  font-size: 1.05rem; color: var(--ink-secondary); max-width: 560px;
+  font-weight: 300; line-height: 1.75; margin-bottom: 3.5rem;
+}
+
+.bg-warm { background: var(--warm); }
+
+/* ═══════════════════════════════════════
+   ABOUT — Stibbe editorial split
+   ═══════════════════════════════════════ */
+.about-grid {
+  display: grid; grid-template-columns: 5fr 6fr; gap: 5rem; align-items: center;
+}
+.about-img-wrap {
+  position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 2px;
+}
+.about-img-placeholder {
+  width: 100%; height: 100%;
+  background: linear-gradient(160deg, var(--warm-deep) 0%, var(--border) 100%);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-muted); font-size: .85rem; text-align: center; padding: 2rem;
+}
+.about-img-wrap::after {
+  content: ''; position: absolute; inset: 0;
+  border: 1px solid rgba(0,0,0,.04);
+}
+.about-text .sec-title { margin-bottom: 1.5rem; }
+.about-text p { color: var(--ink-secondary); margin-bottom: 1.2rem; font-weight: 300; }
+.about-text p:last-child { margin-bottom: 0; }
+
+@media (max-width: 860px) {
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-img-wrap { max-width: 400px; }
+}
+
+/* ═══════════════════════════════════════
+   AUDIENCE — Parc-style clean cards
+   ═══════════════════════════════════════ */
+.audience-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
+.audience-card {
+  background: var(--paper); padding: 2.8rem 2.2rem; position: relative;
+  transition: background .3s;
+}
+.audience-card:hover { background: var(--warm); }
+.audience-card h3 {
+  font-family: var(--serif); font-size: 1.35rem; font-weight: 600;
+  margin-bottom: 1rem; letter-spacing: -.01em;
+}
+.audience-card p { color: var(--ink-secondary); font-size: .925rem; font-weight: 300; line-height: 1.7; }
+.audience-card .card-num {
+  font-family: var(--serif); font-size: 4rem; font-weight: 400;
+  color: var(--accent-subtle); position: absolute; top: 1.2rem; right: 1.8rem;
+  line-height: 1; letter-spacing: -.04em; color: rgba(30,58,47,.08);
+}
+
+@media (max-width: 860px) { .audience-grid { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════
+   SPECIALISMS — Stibbe clean list
+   ═══════════════════════════════════════ */
+.spec-list { border-top: 1px solid var(--border); }
+.spec-item {
+  display: grid; grid-template-columns: 280px 1fr; gap: 2rem;
+  padding: 2rem 0; border-bottom: 1px solid var(--border);
+  align-items: baseline; transition: background .3s; cursor: default;
+}
+.spec-item:hover { background: var(--accent-subtle); margin: 0 -2.5rem; padding: 2rem 2.5rem; }
+.spec-item h3 {
+  font-family: var(--serif); font-size: 1.2rem; font-weight: 600;
+  letter-spacing: -.01em;
+}
+.spec-item p { color: var(--ink-secondary); font-size: .925rem; font-weight: 300; line-height: 1.7; }
+
+@media (max-width: 860px) {
+  .spec-item { grid-template-columns: 1fr; gap: .6rem; }
+  .spec-item:hover { margin: 0 -1.5rem; padding: 1.5rem 1.5rem; }
+}
+
+/* ═══════════════════════════════════════
+   WERKWIJZE — numbered steps
+   ═══════════════════════════════════════ */
+.work-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2.5rem; }
+.work-item { display: flex; gap: 1.5rem; }
+.work-num {
+  font-family: var(--serif); font-size: 2.5rem; font-weight: 400;
+  color: var(--accent); line-height: 1; flex-shrink: 0;
+  opacity: .5; min-width: 40px;
+}
+.work-item h3 { font-size: .95rem; font-weight: 500; margin-bottom: .4rem; }
+.work-item p { color: var(--ink-secondary); font-size: .9rem; font-weight: 300; line-height: 1.65; }
+
+.work-note {
+  margin-top: 3.5rem; padding: 2rem 2.5rem;
+  background: var(--warm); border-left: 2px solid var(--accent);
+  font-size: .95rem; color: var(--ink-secondary); font-weight: 300;
+}
+.work-note strong { font-weight: 500; color: var(--ink); }
+
+@media (max-width: 860px) { .work-grid { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════
+   RESULTS — Stibbe recent-matters style
+   ═══════════════════════════════════════ */
+.results-list { border-top: 1px solid var(--border); }
+.result-item {
+  display: grid; grid-template-columns: 120px 1fr; gap: 2.5rem;
+  padding: 2.2rem 0; border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.result-tag {
+  font-size: .7rem; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent);
+  padding-top: .25rem;
+}
+.result-item h3 {
+  font-family: var(--serif); font-size: 1.2rem; font-weight: 600;
+  margin-bottom: .6rem; letter-spacing: -.01em; line-height: 1.35;
+}
+.result-item p { color: var(--ink-secondary); font-size: .9rem; font-weight: 300; line-height: 1.65; }
+
+@media (max-width: 860px) {
+  .result-item { grid-template-columns: 1fr; gap: .5rem; }
+}
+
+/* ═══════════════════════════════════════
+   CONTACT — clean split
+   ═══════════════════════════════════════ */
+.contact-split {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+}
+.contact-left h3 {
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.contact-detail { margin-bottom: .8rem; color: var(--ink-secondary); font-weight: 300; }
+.contact-detail a { border-bottom: 1px solid var(--border); transition: border-color .3s; }
+.contact-detail a:hover { border-color: var(--accent); color: var(--ink); }
+.contact-legal { margin-top: 2rem; font-size: .8rem; color: var(--ink-muted); line-height: 1.8; }
+
+.contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+.form-group { position: relative; }
+.form-group input, .form-group textarea {
+  width: 100%; padding: 1rem 0 .8rem; border: none;
+  border-bottom: 1px solid var(--border); background: transparent;
+  font-family: var(--sans); font-size: .95rem; font-weight: 300;
+  color: var(--ink); outline: none; transition: border-color .3s;
+}
+.form-group input::placeholder, .form-group textarea::placeholder { color: var(--ink-muted); }
+.form-group input:focus, .form-group textarea:focus { border-bottom-color: var(--accent); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-submit {
+  display: inline-flex; align-items: center; gap: .6rem;
+  background: var(--accent); color: var(--paper); border: none;
+  padding: .9rem 2rem; font-family: var(--sans); font-size: .9rem;
+  font-weight: 500; letter-spacing: .02em; cursor: pointer;
+  transition: background .3s; align-self: flex-start; margin-top: .5rem;
+}
+.form-submit:hover { background: var(--accent-hover); }
+
+@media (max-width: 860px) {
+  .contact-split { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+/* ═══════════════════════════════════════
+   FOOTER — minimal
+   ═══════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 2.5rem;
+}
+.footer-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: .8rem; color: var(--ink-muted); font-weight: 300;
+}
+.footer a { border-bottom: 1px solid transparent; transition: border-color .3s; }
+.footer a:hover { border-color: var(--ink-muted); }
+@media (max-width: 600px) {
+  .footer-inner { flex-direction: column; gap: .8rem; text-align: center; }
+}
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: .1s; }
+.reveal-d2 { transition-delay: .2s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Massali <em>Legal</em></a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#over">Over mij</a></li>
+      <li><a href="#specialismen">Expertise</a></li>
+      <li><a href="#resultaten">Resultaten</a></li>
+      <li><a href="#contact" class="nav-cta-link">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Bestuurs- &amp; omgevingsrecht</div>
+    <h1>Helder juridisch advies dat <em>resultaat</em> oplevert</h1>
+    <p class="hero-sub">Ik ben Jaafar Massali, jurist met ervaring in de advocatuur én bij de overheid. Ik help ondernemers, ontwikkelaars en overheden grip te krijgen op complexe bestuursrechtelijke vraagstukken.</p>
+    <a href="#contact" class="hero-cta">
+      Plan een vrijblijvend gesprek
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="hero-line"></div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div>
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Jaar ervaring</div>
+    </div>
+    <div>
+      <div class="stat-num">2</div>
+      <div class="stat-label">Perspectieven — advocatuur &amp; overheid</div>
+    </div>
+    <div>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Bestuurs- &amp; omgevingsrecht</div>
+    </div>
+  </div>
+</div>
+
+<!-- OVER MIJ -->
+<section id="over" class="bg-warm">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <div class="about-img-placeholder">
+          Professionele portretfoto<br><br>
+          <span style="font-size:.75rem;opacity:.6">Vervang door &lt;img src="..."&gt;</span>
+        </div>
+      </div>
+      <div class="about-text reveal reveal-d1">
+        <div class="sec-label">Over mij</div>
+        <h2 class="sec-title">Jaafar Massali</h2>
+        <p>Na mijn rechtenstudie heb ik jarenlang gewerkt als advocaat bij gerenommeerde kantoren, waar ik overheden, bedrijven en particulieren bijstond in het bestuurs- en omgevingsrecht.</p>
+        <p>Daarna maakte ik de overstap naar de overheid, waar ik als juridisch adviseur aan complexe dossiers werkte rondom de Omgevingswet, vergunningverlening en handhaving.</p>
+        <p>Die combinatie — de scherpte van de advocatuur en het inzicht van de overheidspraktijk — maakt dat ik weet hoe besluitvormingsprocessen werken, waar de risico's zitten, en hoe ik daar effectief op kan inspelen.</p>
+        <p>Daarnaast ben ik als commissielid verbonden aan een gemeentelijke bezwaarschriftencommissie, waardoor ik de bezwaarprocedure ook van de binnenkant ken.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOOR WIE -->
+<section>
+  <div class="container">
+    <div class="sec-label reveal">Voor wie ik werk</div>
+    <h2 class="sec-title reveal">Juridische begeleiding,<br>toegesneden op uw situatie</h2>
+    <p class="sec-intro reveal">Of u ondernemer, overheid of particulier bent — ik lever advies dat past bij uw positie en belangen.</p>
+  </div>
+  <div class="container">
+    <div class="audience-grid reveal">
+      <div class="audience-card">
+        <span class="card-num">01</span>
+        <h3>Ondernemers &amp; vastgoed</h3>
+        <p>U wilt bouwen, verbouwen of exploiteren maar loopt aan tegen vergunningseisen, bestemmingsplanregels of handhaving. Ik begeleid u van aanvraag tot afronding.</p>
+      </div>
+      <div class="audience-card">
+        <span class="card-num">02</span>
+        <h3>Overheden</h3>
+        <p>U zoekt tijdelijke juridische versterking of een second opinion op complexe dossiers. Ik lever direct inzetbare kennis op het gebied van de Omgevingswet, handhaving, Bibob en de Woo.</p>
+      </div>
+      <div class="audience-card">
+        <span class="card-num">03</span>
+        <h3>Particulieren</h3>
+        <p>De overheid heeft een besluit genomen dat u raakt. Ik beoordeel uw positie eerlijk en sta u bij als er kansen liggen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALISMEN -->
+<section id="specialismen" class="bg-warm">
+  <div class="container">
+    <div class="sec-label reveal">Expertise</div>
+    <h2 class="sec-title reveal">Specialismen</h2>
+    <p class="sec-intro reveal">Diepgaande kennis op de terreinen die ertoe doen.</p>
+    <div class="spec-list reveal">
+      <div class="spec-item">
+        <h3>Omgevingsrecht &amp; Omgevingswet</h3>
+        <p>Van een eenvoudige omgevingsvergunning tot een complexe buitenplanse omgevingsplanactiviteit (BOPA): het volledige traject van vergunningverlening en omgevingsplanwijzigingen.</p>
+      </div>
+      <div class="spec-item">
+        <h3>Handhaving</h3>
+        <p>Bestuursdwang, last onder dwangsom, sluitingsbevelen — ik beoordeel de rechtmatigheid en voer waar nodig bezwaar- en beroepsprocedures.</p>
+      </div>
+      <div class="spec-item">
+        <h3>Wet Bibob</h3>
+        <p>Advies aan gemeenten over toepassing en procesinrichting, en bijstand aan exploitanten die geconfronteerd worden met een Bibob-toetsing.</p>
+      </div>
+      <div class="spec-item">
+        <h3>Wet open overheid</h3>
+        <p>Begeleiding bij Woo-verzoeken en openbaarmakingen. Advies over de juridische afwegingen rondom transparantie en bescherming van belangen.</p>
+      </div>
+      <div class="spec-item">
+        <h3>Nadeelcompensatie &amp; planschade</h3>
+        <p>Beoordeling van uw recht op compensatie bij schade door overheidsbesluiten of omgevingsplanwijzigingen.</p>
+      </div>
+      <div class="spec-item">
+        <h3>Strategische advisering</h3>
+        <p>Signalering van risico's in beleids- en besluitvormingstrajecten. Advies over de strategische aanpak — voordat het een geschil wordt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WERKWIJZE -->
+<section>
+  <div class="container">
+    <div class="sec-label reveal">Werkwijze</div>
+    <h2 class="sec-title reveal">Hoe ik werk</h2>
+    <p class="sec-intro reveal">Praktisch, transparant en gericht op resultaat.</p>
+    <div class="work-grid reveal">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div>
+          <h3>Juridisch advies</h3>
+          <p>Van een korte beoordeling tot een uitgebreid memo: scherp, onderbouwd en direct bruikbaar.</p>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">02</div>
+        <div>
+          <h3>Procesvertegenwoordiging</h3>
+          <p>Vertegenwoordiging in zienswijze-, bezwaar-, beroeps- en hogerberoepsprocedures.</p>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">03</div>
+        <div>
+          <h3>Begeleiding ontwikkelingen</h3>
+          <p>Van haalbaarheidstoets en anterieure overeenkomst tot en met de vergunningverlening.</p>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">04</div>
+        <div>
+          <h3>Interim-inzet</h3>
+          <p>Tijdelijke juridische versterking bij overheden, direct operationeel.</p>
+        </div>
+      </div>
+    </div>
+    <div class="work-note reveal">
+      Ik werk op uurtarief of op basis van vaste prijsafspraken. Een eerste kennismakingsgesprek van 30 minuten is altijd <strong>vrijblijvend en kosteloos</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- RESULTATEN -->
+<section id="resultaten" class="bg-warm">
+  <div class="container">
+    <div class="sec-label reveal">Resultaten</div>
+    <h2 class="sec-title reveal">Recente zaken</h2>
+    <p class="sec-intro reveal"></p>
+    <div class="results-list reveal">
+      <div class="result-item">
+        <div class="result-tag">Vastgoed</div>
+        <div>
+          <h3>Tijdelijke huisvesting voor 500 bewoners gerealiseerd</h3>
+          <p>Cliënt bijgestaan in onderhandelingen met een gemeente over een locatie van 16.570 m². Het volledige traject begeleid: van anterieure overeenkomst tot realisatie.</p>
+        </div>
+      </div>
+      <div class="result-item">
+        <div class="result-tag">Beroep</div>
+        <div>
+          <h3>Wegbestemde woonfunctie succesvol bestreden</h3>
+          <p>In beroep gegaan tegen een bestemmingsplanwijziging die de woonfunctie van een pand in Amsterdam-Zuid schrapte. De Raad van State stelde cliënt in het gelijk.</p>
+        </div>
+      </div>
+      <div class="result-item">
+        <div class="result-tag">Handhaving</div>
+        <div>
+          <h3>Handhavingsbesluit vernietigd</h3>
+          <p>Een handhavingsbesluit wegens vermeende strijd met het bestemmingsplan aangevochten en vernietigd, waardoor kamergewijze verhuur kon worden voortgezet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-label reveal">Contact</div>
+    <h2 class="sec-title reveal">Laten we kennismaken</h2>
+    <p class="sec-intro reveal">Heeft u een juridische vraag of wilt u weten wat ik voor u kan betekenen?</p>
+    <div class="contact-split reveal">
+      <div class="contact-left">
+        <h3>Jaafar Massali</h3>
+        <div class="contact-detail"><a href="mailto:info@massali.legal">info@massali.legal</a></div>
+        <div class="contact-detail"><a href="tel:+31XXXXXXXXX">[telefoonnummer]</a></div>
+        <div class="contact-detail"><a href="https://linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a></div>
+        <div class="contact-legal">
+          KvK 98185918<br>
+          BTW NL005314837B53
+        </div>
+      </div>
+      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-group"><input type="text" name="naam" placeholder="Naam" required></div>
+        <div class="form-group"><input type="email" name="email" placeholder="E-mailadres" required></div>
+        <div class="form-group"><input type="tel" name="telefoon" placeholder="Telefoonnummer (optioneel)"></div>
+        <div class="form-group"><textarea name="bericht" placeholder="Waar kan ik u mee helpen?" required></textarea></div>
+        <button type="submit" class="form-submit">
+          Verstuur
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; 2025 Massali Legal</span>
+    <a href="mailto:info@massali.legal">info@massali.legal</a>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 30);
+});
+
+// Hamburger
+const hb = document.getElementById('hamburger');
+const nl = document.getElementById('navLinks');
+hb.addEventListener('click', () => { hb.classList.toggle('open'); nl.classList.toggle('open'); });
+nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hb.classList.remove('open'); nl.classList.remove('open'); }));
+
+// Scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+}, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
